@@ -73,7 +73,7 @@ namespace Wallet
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 1;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(812, 505);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(812, 465);
 			this.tableLayoutPanel1.TabIndex = 1;
 			// 
 			// flowLayoutPanel1
@@ -87,7 +87,7 @@ namespace Wallet
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 4);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(236, 497);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(236, 457);
 			this.flowLayoutPanel1.TabIndex = 1;
 			// 
 			// labelLogo
@@ -154,7 +154,7 @@ namespace Wallet
 			this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel2.Location = new System.Drawing.Point(247, 4);
 			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-			this.flowLayoutPanel2.Size = new System.Drawing.Size(561, 497);
+			this.flowLayoutPanel2.Size = new System.Drawing.Size(561, 457);
 			this.flowLayoutPanel2.TabIndex = 2;
 			// 
 			// labelBalance
@@ -221,20 +221,20 @@ namespace Wallet
 			this.textBoxRecepientDuco.Location = new System.Drawing.Point(3, 18);
 			this.textBoxRecepientDuco.Name = "textBoxRecepientDuco";
 			this.textBoxRecepientDuco.PlaceholderText = "Recepient";
-			this.textBoxRecepientDuco.Size = new System.Drawing.Size(168, 23);
+			this.textBoxRecepientDuco.Size = new System.Drawing.Size(194, 23);
 			this.textBoxRecepientDuco.TabIndex = 0;
 			// 
 			// numericUpDownDuco
 			// 
 			this.numericUpDownDuco.DecimalPlaces = 5;
-			this.numericUpDownDuco.Location = new System.Drawing.Point(177, 18);
+			this.numericUpDownDuco.Location = new System.Drawing.Point(203, 18);
 			this.numericUpDownDuco.Name = "numericUpDownDuco";
 			this.numericUpDownDuco.Size = new System.Drawing.Size(120, 23);
 			this.numericUpDownDuco.TabIndex = 1;
 			// 
 			// buttonSendDuco
 			// 
-			this.buttonSendDuco.Location = new System.Drawing.Point(303, 18);
+			this.buttonSendDuco.Location = new System.Drawing.Point(329, 18);
 			this.buttonSendDuco.Name = "buttonSendDuco";
 			this.buttonSendDuco.Size = new System.Drawing.Size(167, 23);
 			this.buttonSendDuco.TabIndex = 2;
