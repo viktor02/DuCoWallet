@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using RestSharp;
 using Newtonsoft.Json.Linq;
 
 namespace Wallet
@@ -10,21 +9,39 @@ namespace Wallet
 	{
 		string username;
 		string password;
-		class UserLogin
-		{
-			public string result { get; set; }
-			public bool success { get; set; }
-		}
-
 
 		public LoginForm()
 		{
 			InitializeComponent();
+			InitializeTimer();
 		}
+
+		private void InitializeTimer()
+		{
+			// Call this procedure when the application starts.  
+			// Set to 1 second.
+			timerUpdater.Tick += new EventHandler(timerUpdateBalance);
+
+			// Enable timer.  
+			timerUpdater.Enabled = false;
+		}
+
+		private void timerUpdateBalance(object Sender, EventArgs e)
+		{
+			// Set the caption to the current time.
+
+			buttonLogin_Click(null, null);
+		}
+
 
 		private void buttonLogin_Click(object sender, EventArgs e)
 		{
-			var client = new RestClient("https://server.duinocoin.com/");
+			/* 
+			 * Load info
+			 */
+			// TODO:
+			// adaptive design
+			
 
 			username = textBoxUsername.Text;
 			password = textBoxPassword.Text;
@@ -35,34 +52,31 @@ namespace Wallet
 				return;
 			}
 
-			/* Get log in result */
-			string url = $"auth/?username={username}&password={password}";
-			var request = new RestRequest(url, DataFormat.Json);
-			var response = client.Get(request);
-			UserLogin login = System.Text.Json.JsonSerializer.Deserialize<UserLogin>(response.Content);
+			bool is_logged = API.auth_check(username, password);
 
-			/* Load base info */
+			var account = API.get_account_info(username);
 
-			url = $"users/{username}";
-			request = new RestRequest(url, DataFormat.Json);
-			response = client.Get(request);
-			var json = response.Content;
-
-			JObject account = JObject.Parse(json);
-
-
-			// Fill balance label
-			labelBalance.Text = account["result"]["balance"]["balance"].ToString() + " DUCO";
+			if (account.ContainsKey("message"))
+			{
+				MessageBox.Show(account["message"].ToString());
+				return;
+			}
+			JArray jminers = (JArray)account["result"]["miners"];
+			JValue jbalance = (JValue)account["result"]["balance"]["balance"];
+			JArray jtransactions = (JArray)account["result"]["transactions"];
 
 			// Clear treeview and listview
 			treeViewMiners.Nodes.Clear();
 			treeViewTransactions.Nodes.Clear();
 
+			// Fill balance label
+			labelBalance.Text = jbalance + " DUCO";
+
 			bool hasMiners = account["result"]["miners"].HasValues;
 			if (hasMiners)
 			{
 				int i = 0;
-				foreach (var x in account["result"]["miners"])
+				foreach (var x in jminers)
 				{
 					string identifier = x["identifier"].ToString();
 					string software   = x["software"].ToString();
@@ -72,7 +86,6 @@ namespace Wallet
 					string accepted   = x["accepted"].ToString() + " accepted";
 					string rejected   = x["rejected"].ToString() + " rejected";
 
-					treeViewMiners.Visible = true;
 					treeViewMiners.Nodes.Add(software);
 					treeViewMiners.Nodes[i].Nodes.Add(identifier);
 					treeViewMiners.Nodes[i].Nodes.Add(algorithm);
@@ -88,19 +101,17 @@ namespace Wallet
 			bool hasTransactions = account["result"]["transactions"].HasValues;
 			if (hasTransactions)
 			{
-				var transactions = account["result"]["transactions"];
 				int i = 0;
-				foreach (var transaction in transactions)
+				foreach (var transaction in jtransactions)
 				{
-					string amount = transaction["amount"].ToString();
-					string datetime = transaction["datetime"].ToString();
-					string hash = transaction["hash"].ToString();
-					string memo = transaction["memo"].ToString();
+					string amount    = transaction["amount"].ToString();
+					string datetime  = transaction["datetime"].ToString();
+					string hash      = transaction["hash"].ToString();
+					string memo      = transaction["memo"].ToString();
 					string recipient = transaction["recipient"].ToString();
-					string t_sender = transaction["sender"].ToString();
+					string t_sender  = transaction["sender"].ToString();
 
-					treeViewTransactions.Visible = true;
-					treeViewTransactions.Nodes.Add($"{t_sender} => {recipient}");
+					treeViewTransactions.Nodes.Add($"{t_sender} → {amount} → {recipient}");
 					treeViewTransactions.Nodes[i].Nodes.Add(amount);
 					treeViewTransactions.Nodes[i].Nodes.Add(datetime);
 					treeViewTransactions.Nodes[i].Nodes.Add(hash);
@@ -109,67 +120,43 @@ namespace Wallet
 				}
 			}
 
-			/* Check login and pass
-			 * 
-			 *
-			 */
-
-
-			if (login.success)
+			// Check login and password
+			if (is_logged)
 			{
 				labelIsLogged.Text = $"Logged in as {username}";
 
 				// TODO: Get info that require authentication 
 
 				// Show panel with sending DUCO
-				flowLayoutPanel3.Visible = true;
+				flowLayoutPanel3.Enabled = true;
 			}
 			else
 			{
 				labelIsLogged.Text = "Incorrect password. Only information that does not require authentication will be loaded";
 
 				// Hide panel with sending DUCO
-				flowLayoutPanel3.Visible = false;
+				flowLayoutPanel3.Enabled = false;
 			}
+
+			// Run auto-update timer
+			timerUpdater.Enabled = true;
 		}
 
 		private void buttonSendDuco_Click(object sender, EventArgs e)
 		{
 			string recipient = textBoxRecepientDuco.Text;
 			decimal d_amount = numericUpDownDuco.Value;
-			string amount = d_amount.ToString().Replace(',', '.');
 
-			MessageBox.Show($"Send {amount} to {recipient}");
+			MessageBox.Show($"Send {d_amount} to {recipient}");
 
-			var client = new RestClient("https://server.duinocoin.com/");
-			string url = $"transaction/?username={username}&password={password}&recipient={recipient}&amount={amount}";
-			
-			var request = new RestRequest(url, DataFormat.Json);
-			var response = client.Get(request);
-			var json = response.Content;
+			string[] result = API.send_duco(username, password, recipient, d_amount);
 
-			JObject send = JObject.Parse(json);
+			string msg = result[1];
+			string hash = result[2];
 
-			try
-			{
-				string[] subs = send["result"].ToString().Split(',');
-				string status = subs[0];
-				string msg = subs[1];
-				string hash = subs[2];
+			MessageBox.Show($"{msg} Hash: {hash}");
 
-				MessageBox.Show($"{msg} Hash: {hash}");
-
-				System.Diagnostics.Process.Start($"https://explorer.duinocoin.com/?search={hash}");
-			} 
-			catch (IndexOutOfRangeException)
-			{
-				string msg = send["result"].ToString();
-				MessageBox.Show(msg);
-			}
-			catch (Exception exc)
-			{
-				MessageBox.Show(exc.Message);
-			}
+			System.Diagnostics.Process.Start($"https://explorer.duinocoin.com/?search={hash}");
 		}
 	}
 }

@@ -4,6 +4,14 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <PackageId>DuCoWallet</PackageId>
+    <Authors>mendabex</Authors>
+    <Product>DuCoWallet</Product>
+    <Description>Yet Another DuinoCoin Wallet</Description>
+    <Copyright>Viktor Karpov</Copyright>
+    <PackageIcon>dcw.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/viktor02/DuCoWallet</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

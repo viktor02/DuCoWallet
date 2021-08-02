@@ -29,8 +29,10 @@ namespace Wallet
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Miners here");
 			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Transactions here");
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.labelLogo = new System.Windows.Forms.Label();
@@ -47,6 +49,7 @@ namespace Wallet
 			this.textBoxRecepientDuco = new System.Windows.Forms.TextBox();
 			this.numericUpDownDuco = new System.Windows.Forms.NumericUpDown();
 			this.buttonSendDuco = new System.Windows.Forms.Button();
+			this.timerUpdater = new System.Windows.Forms.Timer(this.components);
 			this.tableLayoutPanel1.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.flowLayoutPanel2.SuspendLayout();
@@ -193,11 +196,11 @@ namespace Wallet
 			this.flowLayoutPanel3.Controls.Add(this.numericUpDownDuco);
 			this.flowLayoutPanel3.Controls.Add(this.buttonSendDuco);
 			this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.flowLayoutPanel3.Enabled = false;
 			this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 344);
 			this.flowLayoutPanel3.Name = "flowLayoutPanel3";
 			this.flowLayoutPanel3.Size = new System.Drawing.Size(500, 100);
 			this.flowLayoutPanel3.TabIndex = 3;
-			this.flowLayoutPanel3.Visible = false;
 			// 
 			// labelSendDuco
 			// 
@@ -237,12 +240,17 @@ namespace Wallet
 			this.buttonSendDuco.UseVisualStyleBackColor = true;
 			this.buttonSendDuco.Click += new System.EventHandler(this.buttonSendDuco_Click);
 			// 
+			// timerUpdater
+			// 
+			this.timerUpdater.Interval = 30000;
+			// 
 			// LoginForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 465);
 			this.Controls.Add(this.tableLayoutPanel1);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "LoginForm";
 			this.Text = "DuCoWallet";
 			this.tableLayoutPanel1.ResumeLayout(false);
@@ -275,6 +283,7 @@ namespace Wallet
 		private System.Windows.Forms.NumericUpDown numericUpDownDuco;
 		private System.Windows.Forms.Button buttonSendDuco;
 		private System.Windows.Forms.TreeView treeViewTransactions;
+		private System.Windows.Forms.Timer timerUpdater;
 	}
 }
 
