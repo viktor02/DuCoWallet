@@ -50,6 +50,7 @@ namespace Wallet
 			this.numericUpDownDuco = new System.Windows.Forms.NumericUpDown();
 			this.buttonSendDuco = new System.Windows.Forms.Button();
 			this.timerUpdater = new System.Windows.Forms.Timer(this.components);
+			this.notifyTransactions = new System.Windows.Forms.NotifyIcon(this.components);
 			this.tableLayoutPanel1.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.flowLayoutPanel2.SuspendLayout();
@@ -59,6 +60,7 @@ namespace Wallet
 			// 
 			// tableLayoutPanel1
 			// 
+			this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
 			this.tableLayoutPanel1.ColumnCount = 2;
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
 			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
@@ -71,7 +73,7 @@ namespace Wallet
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 1;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 465);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(812, 505);
 			this.tableLayoutPanel1.TabIndex = 1;
 			// 
 			// flowLayoutPanel1
@@ -83,16 +85,16 @@ namespace Wallet
 			this.flowLayoutPanel1.Controls.Add(this.labelIsLogged);
 			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+			this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 4);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(234, 459);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(236, 497);
 			this.flowLayoutPanel1.TabIndex = 1;
 			// 
 			// labelLogo
 			// 
 			this.labelLogo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.labelLogo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.labelLogo.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.labelLogo.Location = new System.Drawing.Point(3, 0);
 			this.labelLogo.Name = "labelLogo";
 			this.labelLogo.Size = new System.Drawing.Size(231, 137);
@@ -150,9 +152,9 @@ namespace Wallet
 			this.flowLayoutPanel2.Controls.Add(this.flowLayoutPanel3);
 			this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-			this.flowLayoutPanel2.Location = new System.Drawing.Point(243, 3);
+			this.flowLayoutPanel2.Location = new System.Drawing.Point(247, 4);
 			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-			this.flowLayoutPanel2.Size = new System.Drawing.Size(554, 459);
+			this.flowLayoutPanel2.Size = new System.Drawing.Size(561, 497);
 			this.flowLayoutPanel2.TabIndex = 2;
 			// 
 			// labelBalance
@@ -244,11 +246,19 @@ namespace Wallet
 			// 
 			this.timerUpdater.Interval = 30000;
 			// 
+			// notifyTransactions
+			// 
+			this.notifyTransactions.BalloonTipText = "Received transaction";
+			this.notifyTransactions.BalloonTipTitle = "DuCoWallet";
+			this.notifyTransactions.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyTransactions.Icon")));
+			this.notifyTransactions.Text = "notifyIcon1";
+			this.notifyTransactions.Visible = true;
+			// 
 			// LoginForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 465);
+			this.ClientSize = new System.Drawing.Size(812, 465);
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "LoginForm";
@@ -284,6 +294,7 @@ namespace Wallet
 		private System.Windows.Forms.Button buttonSendDuco;
 		private System.Windows.Forms.TreeView treeViewTransactions;
 		private System.Windows.Forms.Timer timerUpdater;
+		private System.Windows.Forms.NotifyIcon notifyTransactions;
 	}
 }
 

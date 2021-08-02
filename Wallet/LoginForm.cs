@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
+using System.Drawing;
+using System.Diagnostics;
 
 namespace Wallet
 {
@@ -29,10 +31,20 @@ namespace Wallet
 		private void timerUpdateBalance(object Sender, EventArgs e)
 		{
 			// Set the caption to the current time.
-
 			buttonLogin_Click(null, null);
 		}
 
+		private void OpenHashInBrowser(string hash)
+		{
+			using (Process proc = new Process())
+			{
+				proc.StartInfo.FileName = "cmd.exe";
+				proc.StartInfo.Arguments = $"/C start https://explorer.duinocoin.com/?search={hash}";
+				proc.StartInfo.UseShellExecute = true;
+				proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+				proc.Start();
+			}
+		}
 
 		private void buttonLogin_Click(object sender, EventArgs e)
 		{
@@ -41,7 +53,6 @@ namespace Wallet
 			 */
 			// TODO:
 			// adaptive design
-			
 
 			username = textBoxUsername.Text;
 			password = textBoxPassword.Text;
@@ -111,11 +122,21 @@ namespace Wallet
 					string recipient = transaction["recipient"].ToString();
 					string t_sender  = transaction["sender"].ToString();
 
-					treeViewTransactions.Nodes.Add($"{t_sender} → {amount} → {recipient}");
-					treeViewTransactions.Nodes[i].Nodes.Add(amount);
-					treeViewTransactions.Nodes[i].Nodes.Add(datetime);
-					treeViewTransactions.Nodes[i].Nodes.Add(hash);
-					treeViewTransactions.Nodes[i].Nodes.Add(memo);
+					if (t_sender == username)
+					{
+						treeViewTransactions.Nodes.Add($"Sent {amount} to {recipient}");
+						treeViewTransactions.Nodes[i].ForeColor = Color.Red;
+					} else
+					{
+						treeViewTransactions.Nodes.Add($"Received {amount} from {t_sender}");
+						treeViewTransactions.Nodes[i].ForeColor = Color.Green;
+					}
+					
+					TreeNode minerNode = treeViewTransactions.Nodes[i];
+					minerNode.Nodes.Add(amount);
+					minerNode.Nodes.Add(datetime);
+					minerNode.Nodes.Add(hash);
+					minerNode.Nodes.Add(memo);
 					i++;
 				}
 			}
@@ -151,12 +172,12 @@ namespace Wallet
 
 			string[] result = API.send_duco(username, password, recipient, d_amount);
 
-			string msg = result[1];
-			string hash = result[2];
+			string status = result[0];
+			string msg    = result[1];
+			string hash   = result[2];
 
-			MessageBox.Show($"{msg} Hash: {hash}");
-
-			System.Diagnostics.Process.Start($"https://explorer.duinocoin.com/?search={hash}");
+			MessageBox.Show($"{status} - {msg} \nHash: {hash}");
+			OpenHashInBrowser(hash);
 		}
 	}
 }

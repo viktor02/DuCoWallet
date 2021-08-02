@@ -58,6 +58,11 @@ namespace Wallet
 
 			var request = new RestRequest(url, DataFormat.Json);
 			var response = client.Get(request);
+			if (response.StatusCode != System.Net.HttpStatusCode.OK)
+			{
+				return new string[] { "ERR", $"Status code: {response.StatusCode}", "" };
+			}
+
 			var json = response.Content;
 
 			JObject send = JObject.Parse(json);
@@ -74,6 +79,11 @@ namespace Wallet
 			catch (IndexOutOfRangeException)
 			{
 				string msg = send["result"].ToString();
+				return new string[] { "", msg, "" };
+			}			
+			catch (NullReferenceException)
+			{
+				string msg = send["message"].ToString();
 				return new string[] { "", msg, "" };
 			}
 			catch (Exception exc)
