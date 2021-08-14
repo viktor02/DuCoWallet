@@ -34,9 +34,10 @@
       <Resource Include="img\dcw.ico">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
-      <None Update="duinolib.dll">
+      <None Remove="duinolib.dll" />
+      <AdditionalFiles Include="duinolib.dll">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+      </AdditionalFiles>
     </ItemGroup>
 
 </Project>

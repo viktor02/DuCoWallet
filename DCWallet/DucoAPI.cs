@@ -78,12 +78,12 @@ namespace DCWallet
 			}
 		}
 
-		public static string[] send_duco(string username, string password, string recipient, decimal d_amount)
+		public static string[] send_duco(string username, string password, string recipient, decimal d_amount, string memo)
 		{
 			string amount = d_amount.ToString().Replace(',', '.');
 
 			var client = new RestClient("https://server.duinocoin.com/");
-			string url = $"transaction/?username={username}&password={password}&recipient={recipient}&amount={amount}";
+			string url = $"transaction/?username={username}&password={password}&recipient={recipient}&amount={amount}&memo={memo}";
 
 			var request = new RestRequest(url, DataFormat.Json);
 			var response = client.Get(request);

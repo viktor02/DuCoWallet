@@ -164,6 +164,7 @@ namespace DCWallet
         {
 	        string recipient = SendCoinsRecipientBox.Text;
 	        decimal amount = decimal.Parse(SendCoinsAmountBox.Text, CultureInfo.InvariantCulture);
+	        string memo = SendCoinsMemo.Text;
 	        
 	        MessageBoxResult isWannaSend = MessageBox.Show($"Send {amount} to {recipient}?", "DuCoWallet", 
 		        MessageBoxButton.YesNo, MessageBoxImage.Information);
@@ -172,7 +173,7 @@ namespace DCWallet
 		        return;
 	        }
 	        
-	        string[] result = DucoApi.send_duco(Username, Password, recipient, amount);
+	        string[] result = DucoApi.send_duco(Username, Password, recipient, amount, memo);
 	        try
 	        {
 		        string status = result[0];
