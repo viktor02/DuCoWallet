@@ -1,0 +1,20 @@
+﻿<Window x:Class="DCWallet.BalanceGraph"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:DCWallet"
+        xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        Title="BalanceGraph" Height="450" Width="800" Icon="img/dcw.ico">
+        <Grid>
+                <wpf:CartesianChart Series="{Binding SeriesCollection}" Zoom="X" DisableAnimations="True" LegendLocation="Right" >
+                        <wpf:CartesianChart.AxisY>
+                                <wpf:Axis Title="Balance" LabelFormatter="{Binding YFormatter}"></wpf:Axis>
+                        </wpf:CartesianChart.AxisY>
+                        <wpf:CartesianChart.AxisX>
+                                <wpf:Axis Title="Timestamp" Labels="{Binding Labels}"></wpf:Axis>
+                        </wpf:CartesianChart.AxisX>
+                </wpf:CartesianChart>
+        </Grid>
+</Window>

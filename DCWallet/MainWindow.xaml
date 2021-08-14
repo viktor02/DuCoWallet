@@ -1,0 +1,98 @@
+﻿<Window x:Class="DCWallet.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DCWallet"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        mc:Ignorable="d"
+        Title="DuCoWallet" Height="600" Width="1100" FontSize="14" Icon="img/dcw.ico">
+        
+        <Window.Resources>
+                <Style TargetType="Menu">
+                        <Setter Property="Background" Value="White" />
+                </Style>
+        </Window.Resources>
+        
+        <Grid HorizontalAlignment="Stretch" ShowGridLines="False">
+                <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>  <!-- Miners -->
+                        <ColumnDefinition Width="1*"/>  <!-- Mine DUCO -->
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>   <!-- 0 Menu -->
+                        <RowDefinition Height="Auto"></RowDefinition>   <!-- 1 Hello label -->
+                        <RowDefinition Height="1*"></RowDefinition>     <!-- 2 Miners -->
+                        <RowDefinition Height="1*"></RowDefinition>     <!-- 3 Send duco -->
+                </Grid.RowDefinitions>
+                <Menu Grid.ColumnSpan="3" FontSize="14">
+                        <MenuItem Header="Settings">
+                                <MenuItem Header="Refresh data" Click="MenuItemUpdateForm_OnClick"></MenuItem>
+                                <MenuItem Header="Change username in wallet" Click="MenuItemChangeUsername_OnClick"></MenuItem>
+                        </MenuItem>
+                        <MenuItem Header="Graph">
+                                <MenuItem Header="Draw balance plot" Click="MenuItemDrawBalance_OnClick"></MenuItem>
+                        </MenuItem>
+                        <MenuItem Header="Server Stats" Click="MenuItemServerStats_OnClick"></MenuItem>
+                        <MenuItem Header="About" Click="MenuItemAbout_OnClick"></MenuItem>
+                </Menu>
+                
+                <Label Grid.Row="1" Grid.Column="0" FontSize="22" Name="HelloLabel" Margin="10 0 0 0 ">Hello, </Label>
+                <Label Grid.Row="1" Grid.Column="1" FontSize="22" Name="BalanceLabel">0 </Label>
+                
+                <TreeView Grid.Row="2" Grid.Column="0" 
+                          Name="MinerTreeView" 
+                          ScrollViewer.VerticalScrollBarVisibility="Visible" 
+                          Width="Auto" Height="Auto" Margin="15 15 15 15"
+                          VerticalAlignment="Stretch">
+                        <TreeView.ItemContainerStyle>
+                                <Style TargetType="{x:Type TreeViewItem}">
+                                        <Setter Property="IsExpanded" Value="True" />
+                                </Style>
+                        </TreeView.ItemContainerStyle>
+                </TreeView>
+                <TreeView Name="TransactionsTreeView" MinHeight="150" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          Grid.Row="3" Grid.Column="0" Width="Auto" Height="Auto" Margin="15 15 15 15">
+                        <TreeView.Resources>
+                                <ContextMenu x:Key ="SolutionContext"  StaysOpen="true">
+                                        <MenuItem Header="Copy" Click="TransactionCopy"/>
+                                </ContextMenu>
+                        </TreeView.Resources>
+                        <TreeView.ItemContainerStyle>
+                                <Style TargetType="{x:Type TreeViewItem}">
+                                        <Setter Property="IsExpanded" Value="True" />
+                                </Style>
+                        </TreeView.ItemContainerStyle>
+                </TreeView>
+                
+                <GroupBox Grid.Row="2" Grid.Column="1" Header="Mine DUCO" Padding="5"
+                          Margin="0 0 15 0">
+                        <StackPanel Width="Auto">
+                                <Label Name="MinerDiffLabel">Diff</Label>
+                                <ComboBox Name="MinerDiff">
+                                        <ComboBoxItem>LOW</ComboBoxItem>
+                                        <ComboBoxItem>MEDIUM</ComboBoxItem>
+                                        <ComboBoxItem>NET</ComboBoxItem>
+                                        <ComboBoxItem IsSelected="True">EXTREME</ComboBoxItem>
+                                </ComboBox>
+                                <Label Name="IdentifierLabel">Identifier</Label>
+                                <TextBox Name="MinerIdentifierTb">cpuMiner</TextBox>
+                                <Button Name="MinerStartButton" Click="MinerStartButton_OnClick" Margin="0 10 0 0">Start mine</Button>
+                                <Button Name="MinerStopButton" IsEnabled="False" Click="MinerStopButton_OnClick" Margin="0 10 0 0">Stop mine</Button>
+                        </StackPanel>
+                </GroupBox>
+                <GroupBox Grid.Row="3" Grid.Column="1" Header="Send DUCO" Padding="5"
+                          Margin="0 0 15 15">
+                        <StackPanel Width="Auto">
+                                <Label>Recipient</Label>
+                                <TextBox Name="SendCoinsRecipientBox">mendabex</TextBox>
+                                <Label>Amount</Label>
+                                <TextBox Name="SendCoinsAmountBox">1.00</TextBox>
+                                <Label>Message</Label>
+                                <TextBox Name="SendCoinsMemo">Catch donat</TextBox>
+                                <Button Name="SendCoinsButton" Click="SendCoinsButton_OnClick" Margin="0 10 0 15">Send DUCO</Button>
+                        </StackPanel>
+                </GroupBox>
+        </Grid> 
+        
+</Window>

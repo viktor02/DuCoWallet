@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <UseWPF>true</UseWPF>
+        <PackageVersion>1.1.0</PackageVersion>
+        <Title>DuCoWallet</Title>
+        <Authors>mendabex</Authors>
+        <Copyright>vitka-k.ru</Copyright>
+        <PackageProjectUrl>https://github.com/viktor02/DuCoWallet</PackageProjectUrl>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/viktor02/DuCoWallet/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/viktor02/DuCoWallet</RepositoryUrl>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+    <PropertyGroup>
+        <ApplicationIcon>C:\Users\user\RiderProjects\DCWallet\DCWallet\img\dcw.ico</ApplicationIcon>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <PlatformTarget>x86</PlatformTarget>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <PlatformTarget>x86</PlatformTarget>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="RestSharp" Version="106.12.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="img\dcw.ico" />
+      <Resource Include="img\dcw.ico">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Update="duinolib.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>
