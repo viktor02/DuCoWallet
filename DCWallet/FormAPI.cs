@@ -43,7 +43,7 @@ namespace DCWallet
             proc.StartInfo.Arguments = $"creds.dcw";
             proc.StartInfo.UseShellExecute = true;
             proc.Start();
-            MessageBox.Show("After change restart the app");
+            MessageBox.Show("After changes restart the app");
         }
 
         public static void LogBalance(decimal userBalance)
