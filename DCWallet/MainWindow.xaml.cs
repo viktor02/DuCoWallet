@@ -38,7 +38,7 @@ namespace DCWallet
             
             var dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(UpdateForm);
-            dispatcherTimer.Interval = new TimeSpan(0,0,10);
+            dispatcherTimer.Interval = new TimeSpan(0,0,30);
             dispatcherTimer.Start();
 
             UpdateForm(null, null);
@@ -104,7 +104,7 @@ namespace DCWallet
 					string software   = x["software"].ToString();
 					string algorithm  = x["algorithm"].ToString();
 					string diff       = x["diff"] + " diff";
-					string hashrate   = $"{(int)x["hashrate"] * 1000} kH/s";
+					string hashrate   = $"{(int)x["hashrate"] / 1000} kH/s";
 					string accepted   = x["accepted"] + " accepted";
 					string rejected   = x["rejected"] + " rejected";
 

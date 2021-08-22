@@ -28,7 +28,7 @@
                 <Menu Grid.ColumnSpan="3" FontSize="14">
                         <MenuItem Header="Settings">
                                 <MenuItem Header="Refresh data" Click="MenuItemUpdateForm_OnClick"></MenuItem>
-                                <MenuItem Header="Change username in wallet" Click="MenuItemChangeUsername_OnClick"></MenuItem>
+                                <MenuItem Header="Change username/password in wallet" Click="MenuItemChangeUsername_OnClick"></MenuItem>
                         </MenuItem>
                         <MenuItem Header="Graph">
                                 <MenuItem Header="Draw balance plot" Click="MenuItemDrawBalance_OnClick"></MenuItem>

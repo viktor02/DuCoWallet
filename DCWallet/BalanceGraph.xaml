@@ -7,14 +7,25 @@
         xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="BalanceGraph" Height="450" Width="800" Icon="img/dcw.ico">
-        <Grid>
-                <wpf:CartesianChart Series="{Binding SeriesCollection}" Zoom="X" DisableAnimations="True" LegendLocation="Right" >
-                        <wpf:CartesianChart.AxisY>
-                                <wpf:Axis Title="Balance" LabelFormatter="{Binding YFormatter}"></wpf:Axis>
-                        </wpf:CartesianChart.AxisY>
-                        <wpf:CartesianChart.AxisX>
-                                <wpf:Axis Title="Timestamp" Labels="{Binding Labels}"></wpf:Axis>
-                        </wpf:CartesianChart.AxisX>
-                </wpf:CartesianChart>
-        </Grid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <wpf:CartesianChart Series="{Binding SeriesCollection}" Zoom="X" DisableAnimations="True"
+                            LegendLocation="Right" Grid.Row="0">
+            <wpf:CartesianChart.AxisY>
+                <wpf:Axis Title="Balance" LabelFormatter="{Binding YFormatter}" />
+            </wpf:CartesianChart.AxisY>
+            <wpf:CartesianChart.AxisX>
+                <wpf:Axis Title="Timestamp" Labels="{Binding Labels}" />
+            </wpf:CartesianChart.AxisX>
+        </wpf:CartesianChart>
+        <GroupBox Grid.Row="1" Header="Actions">
+            <StackPanel>
+                <Button Click="ButtonClearPlot_OnClick" Margin="10" Width="200">Clear plot</Button>
+            </StackPanel>
+        </GroupBox>
+
+    </Grid>
 </Window>

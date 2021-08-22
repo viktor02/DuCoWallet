@@ -58,5 +58,10 @@ namespace DCWallet
 
             return (balances, timestamps);
         }
+
+        private void ButtonClearPlot_OnClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Not implemented now");
+        }
     }
 }
