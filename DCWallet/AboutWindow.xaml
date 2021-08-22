@@ -12,6 +12,7 @@
             <Label HorizontalContentAlignment="Center" FontSize="24">DuCoWallet</Label>
             <Label HorizontalContentAlignment="Center">Created by mendabex</Label>
             <Label HorizontalContentAlignment="Center">www.vitka-k.ru</Label>
+            <Label HorizontalContentAlignment="Center" Name="AppVersionLbl"></Label>
         </StackPanel>
     </Grid>
 </Window>

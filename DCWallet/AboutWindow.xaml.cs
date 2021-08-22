@@ -7,6 +7,11 @@ namespace DCWallet
         public AboutWindow()
         {
             InitializeComponent();
+
+            string AppVersion = "v0.2.3";
+            
+            AppVersionLbl.Content = AppVersion;
+            this.Title += $" {AppVersion}";
         }
     }
 }
